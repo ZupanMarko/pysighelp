@@ -13,8 +13,7 @@ authors = [{ name = "Marko Zupan", email = "marko.zupan@fs.uni-lj.si" }]
 dependencies = [
     "numpy",
     "scipy",
-    "matplotlib",
-    "pickle"
+    "matplotlib"
 ]
 
 [project.urls]
