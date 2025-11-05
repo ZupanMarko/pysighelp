@@ -19,3 +19,6 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/ZupanMarko/pysighelp"
+
+[tool.setuptools.packages.find]
+where = ["pysighelp"]
