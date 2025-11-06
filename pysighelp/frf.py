@@ -77,7 +77,7 @@ def calculate_frf_fft(response, excitation, fs):
 
     return freq, H1, H2, Coh
 
-def calculate_frf_welch(response, excitation, fs, nperseg=1024, noverlap=512):
+def calculate_frf_welch(response, excitation, fs, nperseg=1024, noverlap=512, **kwargs):
     """
     Calculate Frequency Response Function using Welch's method (H1 and H2 estimators).
     
@@ -106,16 +106,16 @@ def calculate_frf_welch(response, excitation, fs, nperseg=1024, noverlap=512):
         Coherence function.
     """
     # Cross power spectral densities
-    f, Paf = signal.csd(response, excitation, fs, nperseg=nperseg, noverlap=noverlap)
-    _, Pfa = signal.csd(excitation, response, fs, nperseg=nperseg, noverlap=noverlap)
+    f, Paf = signal.csd(response, excitation, fs, nperseg=nperseg, noverlap=noverlap, **kwargs)
+    _, Pfa = signal.csd(excitation, response, fs, nperseg=nperseg, noverlap=noverlap, **kwargs)
     # Power spectral densities
-    _, Pff = signal.welch(excitation, fs, nperseg=nperseg, noverlap=noverlap)
-    _, Paa = signal.welch(response, fs, nperseg=nperseg, noverlap=noverlap)
+    _, Pff = signal.welch(excitation, fs, nperseg=nperseg, noverlap=noverlap, **kwargs)
+    _, Paa = signal.welch(response, fs, nperseg=nperseg, noverlap=noverlap, **kwargs)
     # H1 and H2 estimators
     H1 = Paf / Pff
     H2 = Paa / Pfa
     # Coherence
-    _, Coh = signal.coherence(response, excitation, fs, nperseg=nperseg, noverlap=noverlap)
+    _, Coh = signal.coherence(response, excitation, fs, nperseg=nperseg, noverlap=noverlap, **kwargs)
     return f, H1, H2, Coh
 
 def calculate_frf_spectrogram(response, excitation, fs, nperseg=1024, noverlap=512):
