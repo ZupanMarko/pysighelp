@@ -119,7 +119,7 @@ class WheatstoneBridge:
         return float(slope), float(intercept)
 
 
-    def compute(self, prefilter_notch=False, notch_f0=50.0, notch_q=30.0, robust_gain=True, gain_postcorrection=True):
+    def compute(self, prefilter_notch=False, notch_f0=50.0, notch_q=30.0, robust_gain=True, gain_postcorrection=True, positive_gain = True):
         """
         Compute time-dependent and static resistances using a robust gain estimate.
 
@@ -145,12 +145,16 @@ class WheatstoneBridge:
         self.gain = slope if slope != 0 else 1.0
         self.gain_intercept = intercept
 
+        self.gain = np.abs(self.gain) if positive_gain else self.gain
+
         R = self.Rb * (1 + 4 * (self.Vout - self.gain_intercept) / (self.gain * self.Vexec))
 
         #Gain postcorrection
         if gain_postcorrection: 
             correction_factor = np.mean(Rna) / np.mean(R)
+            correction_factor = np.abs(correction_factor) if positive_gain else correction_factor
             R *= correction_factor
+            
 
         R0 = float(np.mean(Rna))
 
