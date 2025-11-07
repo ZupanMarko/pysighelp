@@ -145,8 +145,6 @@ class WheatstoneBridge:
         self.gain = slope if slope != 0 else 1.0
         self.gain_intercept = intercept
 
-        print(f"Computed gain: {self.gain:.6f}, intercept: {self.gain_intercept:.6f}")
-
         R = self.Rb * (1 + 4 * (self.Vout - self.gain_intercept) / (self.gain * self.Vexec))
 
         #Gain postcorrection
