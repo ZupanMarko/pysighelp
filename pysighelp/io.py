@@ -44,7 +44,7 @@ def save_pickle(path, name, data, timestamp=True, check_integrity=True):
     """
     try:
         #Add timestamp after filename
-        timestamp = time.strftime("%Y%m%d-%H%M%S")
+        timestamp_value = time.strftime("%Y%m%d-%H%M%S")
         if not os.path.exists(path):
             os.makedirs(path)
         if not isinstance(name, str):
@@ -62,7 +62,7 @@ def save_pickle(path, name, data, timestamp=True, check_integrity=True):
             filename = f"{path}/{name}.pickle"
         else:
             # Add timestamp to filename
-            filename = f"{path}/{timestamp}_{name}.pickle"
+            filename = f"{path}/{timestamp_value}_{name}.pickle"
 
 
         if check_integrity:
